@@ -1,34 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextJs Concepts
 
-## Getting Started
+# File-system routing
 
-First, run the development server:
+# CSR, SSR, SSG and ISR
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Pre-rendering
+2. SSG - Static Site Generation
+3. SSR - Server Side Rendering
+4. CSR - Client Side Rendering
+5. ISR - Incremental Static Regeneration
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. Pre-rendering
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **Pre-rendering** có nghĩa là mình render sẵn các file HTML ở phía server
+- Khi mà user get về thì đã có sẵn file HTML để nó show ra
+- Sau đó load thêm Javascript .
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Trong NextJs có 2 hình thức để Pre-rendering là _SSG (Static Site Generation)_ và _SSR (Server Side Rendering)_
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Hiện tại SSG khá là xịn , được khuyến khích bởi NextJs, TH về SSR sẽ càng ngày càng ít
 
-## Learn More
+### 2. SSG - Static Site Generation
 
-To learn more about Next.js, take a look at the following resources:
+- HTML is generated at **_build-time_**
+- Mô tả : khi chạy yarn build (tại thời điểm build dự án) ==> build được sẵn những nội dung static. Khi mà user gửi request lên thì chỉ cần trả về cái file mà đã build sẵn,
+  ==> Performance sẽ nhanh
+- Được diễn ra trong giai đoạn **build-time** (tức là xảy ra trong thời điểm gõ lệnh _yarn build_)
+  ==> Build 1 phát, cần gì trả về (đó là SSG)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. SSR - Server Side Rendering
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- HTML is generated on **_each request_**
+- Mô tả : User gửi request lên ==> xử lí, gom/lấy dữ liệu ==> tạo ra file HTML ==> trả về cho user
+- Cứ mỗi lẫn request lên là phải xử lí và tạo ra 1 file HTML
+- Nếu có nhiều request thì server làm việc khá cực, tốn resource trên server.
+- Tùy thuộc vào server tính toán nhanh hay chậm -> ảnh hưởng đến việc User đợi nhanh hay lâu -> đợi nhanh hay lâu thì chỉ số _time to first by_ sẽ càng lớn
+  ==> theo mỗi request tạo ra 1 file HTML trả về (đó là SSR)
 
-## Deploy on Vercel
+### 4. CSR - Client Side Rendering
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Client Side là khi sử dùng ReactJs với create-react-app
+- Nó sẽ **không** render ở phía server, nó sẽ đợi client load Javascript rồi sau đó mới render lên
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Trong NextJs khi nhắc tới CSR thì có thể kết hợp giữa _SSG_ và _Fetch Data on Client Site_, hướng này sẽ làm cho những trường hợp mà: dữ liệu của mình không phải render sẵn bên phía server, không cần SEO, cho những private website(vd trang Admin,...)
+
+### 5. ISR - Incremental Static Regeneration
+
+- bản chất của nó là _dựa trên_ SSG nhưng được kết hợp thêm 1 option là **revalidate**
+
+- Với NextJs thì mỗi trang có thể config 1 hình thức Pre-rendering khác nhau
+- config sẽ phụ thuộc vào sự xuất hiện của 1 số hàm đặc biệt
+
+Tham khảo : https://drive.google.com/file/d/1YKvpah7EiEJido83nWIbA5pfu9O1amUR/view
