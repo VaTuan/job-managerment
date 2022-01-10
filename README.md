@@ -50,5 +50,20 @@ Trong NextJs có 2 hình thức để Pre-rendering là _SSG (Static Site Genera
 
 - Với NextJs thì mỗi trang có thể config 1 hình thức Pre-rendering khác nhau
 - config sẽ phụ thuộc vào sự xuất hiện của 1 số hàm đặc biệt
+Nếu dùng hàm **getServerSideProps** thì sẽ là dạng SSR, nếu không dùng thì sẽ là SSG
+Nếu trong TH là SSG thì có TH sử dụng hoặc không sửa dụng hàm **getStaticProps**
+Trong TH sử dụng **getStaticProps** mà dùng *revalidate* thì sẽ là **ISR** còn không thì sẽ là **SSG**
 
-Tham khảo : https://drive.google.com/file/d/1YKvpah7EiEJido83nWIbA5pfu9O1amUR/view
+Tham khảo : https://drive.google.com/file/d/1YKvpah7EiEJido83nWIbA5pfu9O1amUR/v iew
+
+## Automatic Static Optimization
+- ở NextJs xác định 1 trang có phải là **static** hay không (có thể prerendered hay không) bằng cách xác định page đó có dùng hàm
+*getServerSideProps* hay *getInitialProps* không,
+- Nếu có dùng thì nó không phải là Automatic Static Optimization ==> không **pre-rendered** được 
+
+
+## Code with SSG
+có 3 TH sử dụng : 
+1. Static HTML Generation thì không cần dùng
+2. Static HTML + JSON Data     use   getStaticProps
+3. Static HTML + JSON Data + Dynamic Routes    use getStaticProps + getStaticPaths
