@@ -42,7 +42,9 @@ Trong NextJs có 2 hình thức để Pre-rendering là _SSG (Static Site Genera
 - Client Side là khi sử dùng ReactJs với create-react-app
 - Nó sẽ **không** render ở phía server, nó sẽ đợi client load Javascript rồi sau đó mới render lên
 
-- Trong NextJs khi nhắc tới CSR thì có thể kết hợp giữa _SSG_ và _Fetch Data on Client Site_, hướng này sẽ làm cho những trường hợp mà: dữ liệu của mình không phải render sẵn bên phía server, không cần SEO, cho những private website(vd trang Admin,...)
+- Trong NextJs khi nhắc tới CSR thì có thể kết hợp giữa _SSG_ và _Fetch Data on Client Site_,
+ hướng này sẽ làm cho những trường hợp mà: dữ liệu của mình không phải render sẵn bên phía server, 
+không cần SEO, cho những private website(vd trang Admin,...)
 
 ### 5. ISR - Incremental Static Regeneration
 
@@ -52,3 +54,9 @@ Trong NextJs có 2 hình thức để Pre-rendering là _SSG (Static Site Genera
 - config sẽ phụ thuộc vào sự xuất hiện của 1 số hàm đặc biệt
 
 Tham khảo : https://drive.google.com/file/d/1YKvpah7EiEJido83nWIbA5pfu9O1amUR/view
+
+### Automatic Static Optimization
+
+NextJs sẽ xác định 1 trang có phải là static hay không(có thể **_pre-render_** được hay không) thì xác định bằng cách mình có sử dụng 2 hàm **_getServerSideProps_** và **\*getInitialProps** hay không
+
+- nếu sử dụng 2 hàm **_getServerSideProps_** và **\*getInitialProps** thì sẽ là render theo từng request (SSR) --> không thể **_pre-render_** được ==> KHÔNG PHẢI là **Automatic Static Optimization**
